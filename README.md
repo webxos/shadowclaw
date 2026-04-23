@@ -40,36 +40,12 @@ sudo apt install libcurl4-openssl-dev libreadline-dev gcc make
 
 ---
 
-## Installation
-
-Clone the repository and compile:
+## Installation + Launch
 
 ```bash
-git clone https://github.com/yourname/shadowclaw.git
-cd shadowclaw
-make
-```
-
-The `Makefile` (example below) will produce the `shadowclaw` binary.
-
-If you prefer to compile manually:
-
-```bash
-gcc -D_GNU_SOURCE -DUSE_READLINE -Wall -Wextra -O2 \
-    shadowclaw.c interpreter.c cJSON.c \
-    -o shadowclaw -lcurl -lpthread -lreadline -lm
-```
-
-> **Note:** If you don't have or want readline, remove `-DUSE_READLINE` and the `-lreadline` flag.
-
----
-
-## Usage
-
-Run the agent:
-
-```bash
-./shadowclaw
+cd ~/shadowclaw
+make clean && make
+./start.sh
 ```
 
 Command‑line flags:

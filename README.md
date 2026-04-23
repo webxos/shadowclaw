@@ -1,4 +1,4 @@
-# Shadowclaw – Self-Contained AI Agent with Unified Memory
+# Shadowclaw – version 3.2
 
 ![Version](https://img.shields.io/badge/version-3.2-blue)
 ![C](https://img.shields.io/badge/language-C-blue)

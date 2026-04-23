@@ -33,17 +33,14 @@
   - `libreadline` (optional, for TUI enhancements)
   - `gcc` or `clang` with C99 support
 
-On Debian/Ubuntu:
-```bash
-sudo apt install libcurl4-openssl-dev libreadline-dev gcc make
-```
-
 ---
 
 ## Installation + Launch
 
+*Put all files into a single folder on your system*
+
 ```bash
-cd ~/shadowclaw
+cd ~/shadowclaw (The folder you put the files in)
 make clean && make
 ./start.sh
 ```

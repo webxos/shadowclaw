@@ -174,3 +174,7 @@ shadowclaw/
 ## 📄 License
 
 MIT License. 
+
+## Archive
+
+Version 1.3: https://github.com/webxos/webXOS/tree/main/shadowclaw

@@ -171,16 +171,6 @@ shadowclaw/
 └── README.md             # This file
 ```
 
----
-
-## Known Issues & Limitations, accepting PRs for:
-
-- The LLM must output a valid JSON plan; a simple JSON extraction fallback is included but may still fail for heavily malformed output.
-- Cron resolution is one second; intervals shorter than 5 seconds are not recommended.
-- The soul file is rewritten on every sync – for very large logs consider rotating manually.
-
----
-
 ## 📄 License
 
 MIT License. 

@@ -4,6 +4,8 @@
 ![C](https://img.shields.io/badge/language-C-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+![Alt Text](https://github.com/webxos/shadowclaw/blob/main/assets/shadowclaw.jpeg)
+
 **Shadowclaw** is a lightweight, self-contained AI agent written in C. It uses a local LLM (Ollama) to reason and plan, executes tools (file I/O, HTTP, shell, cron, webhooks), and persistently stores all memories – conversation, skills, cron jobs, and core knowledge – in a custom **arena** plus a human‑readable **soul file**. The agent follows a ReWOO‑style plan‑and‑solve pattern with full tool integration.
 
 ---

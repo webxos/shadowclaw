@@ -122,7 +122,7 @@ fi
 # ---------- Display Information ----------
 clear
 echo -e "${BOLD}╔════════════════════════════════════════════╗${NC}"
-echo -e "${BOLD}║        Shadowclaw AI Agent v3.2            ║${NC}"
+echo -e "${BOLD}║        Shadowclaw AI Agent v3.3            ║${NC}"
 echo -e "${BOLD}╚════════════════════════════════════════════╝${NC}"
 echo ""
 print_status "Working directory: $(pwd)"

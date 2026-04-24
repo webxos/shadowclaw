@@ -57,14 +57,24 @@ make clean && make
 ./start.sh
 ```
 
-Command‑line flags:
+## Setup your local Ollama model
 
-| Flag | Effect |
-|------|--------|
-| `--no-llm` | Disable LLM calls, use only interpreter commands. |
-| `--dry-run` | Simulate tool execution (no actual file/HTTP actions). |
-| `--log <file>` | Append logs to a file. |
-| `-f <file>` | Use an alternative state file (default: `shadowclaw.bin`). |
+Find line 633 in the shadowclaw.c file:
+
+```bash
+static const char *ollama_endpoint = "http://localhost:11434";
+static const char *ollama_model = "qwen2.5:0.5b"; (Change this to desired model)
+static long llm_connect_timeout = 15;
+```
+
+Also line 16 in start.sh file:
+
+```bash
+OLLAMA_ENDPOINT="${OLLAMA_ENDPOINT:-http://localhost:11434}"
+OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5:0.5b}" (Change this to desired model)
+```
+
+---
 
 ### First start
 

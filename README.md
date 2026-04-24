@@ -59,6 +59,8 @@ make clean && make
 
 ## Setup your local Ollama model
 
+*Shadowclaw is set to use qwen2.5:0.5b as a default, to change this:*
+
 Find line 633 in the shadowclaw.c file:
 
 ```bash

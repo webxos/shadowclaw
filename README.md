@@ -6,6 +6,16 @@
 
 ![Alt Text](https://github.com/webxos/shadowclaw/blob/main/assets/shadowclaw.jpeg)
 
+<div style="max-width: 100%; overflow-x: auto; background: #f6f8fa; padding: 16px; border-radius: 8px;">
+  <pre style="font-family: 'Courier New', monospace; font-size: clamp(12px, 2vw, 18px); line-height: 1.2; margin: 0;">
+  ____  _               _                   _
+ / ___|| |__   __ _  __| | _____      _____| | __ ___      __
+ \___ \| '_ \ / _` |/ _` |/ _ \ \ /\ / / __| |/ _` \ \ /\ / /
+  ___) | | | | (_| | (_| | (_) \ V  V / (__| | (_| |\ V  V /
+ |____/|_| |_|\__,_|\__,_|\___/ \_/\_/ \___|_|\__,_| \_/\_/
+  </pre>
+</div>
+
 **Shadowclaw** is a lightweight, self-contained AI agent written in C. It uses a local LLM (Ollama) to reason and plan, executes tools (file I/O, HTTP, shell, cron, webhooks), and persistently stores all memories – conversation, skills, cron jobs, and core knowledge – in a custom **arena** plus a human‑readable **soul file**. The agent follows a ReWOO‑style plan‑and‑solve pattern with full tool integration.
 
 ---

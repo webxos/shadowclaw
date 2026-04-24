@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shadowclaw Startup Script v3.3+ (Fixed)
+# Shadowclaw Startup Script v3.2+ (Fixed)
 # Location: /home/kali/shadowclaw-v2/start.sh
 
 set -e
@@ -13,7 +13,7 @@ SOUL_FILE="$DATA_DIR/shadowsoul.md"
 
 # Ollama settings (can be overridden by environment)
 OLLAMA_ENDPOINT="${OLLAMA_ENDPOINT:-http://localhost:11434}"
-OLLAMA_MODEL="${OLLAMA_MODEL:-tinyllama:1.1b}"
+OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5:0.5b}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -29,7 +29,7 @@ print_success() { echo -e "${GREEN}[✓]${NC} $1"; }
 print_warning() { echo -e "${YELLOW}[!]${NC} $1"; }
 print_error() { echo -e "${RED}[✗]${NC} $1"; }
 
-# ---------- Environment Variables for Timeouts (uncommented & realistic) ----------
+# ---------- Environment Variables for Timeouts ----------
 export SHADOWCLAW_CONNECT_TIMEOUT="${SHADOWCLAW_CONNECT_TIMEOUT:-15}"
 export SHADOWCLAW_TOTAL_TIMEOUT="${SHADOWCLAW_TOTAL_TIMEOUT:-180}"
 export SHADOWCLAW_RETRY_ATTEMPTS="${SHADOWCLAW_RETRY_ATTEMPTS:-5}"
@@ -48,7 +48,6 @@ fi
 NO_LLM_MODE=0
 FORCE_LLM=0
 
-# Parse command line arguments for --force-llm
 for arg in "$@"; do
     if [ "$arg" = "--force-llm" ]; then
         FORCE_LLM=1
@@ -56,11 +55,9 @@ for arg in "$@"; do
 done
 
 check_ollama() {
-    # Quick connectivity test
     if ! curl -s --max-time 2 "$OLLAMA_ENDPOINT/api/tags" > /dev/null 2>&1; then
         return 1
     fi
-    # Verify the required model exists
     if ! curl -s "$OLLAMA_ENDPOINT/api/tags" 2>/dev/null | grep -q "\"name\":\"$OLLAMA_MODEL\""; then
         return 2
     fi
@@ -119,11 +116,16 @@ if [ ! -d "$DATA_DIR" ]; then
     print_success "Created data directory: $DATA_DIR"
 fi
 
-# ---------- Display Information ----------
+# ---------- Display Information (Full ASCII Banner) ----------
 clear
-echo -e "${BOLD}╔════════════════════════════════════════════╗${NC}"
-echo -e "${BOLD}║        Shadowclaw AI Agent v3.4            ║${NC}"
-echo -e "${BOLD}╚════════════════════════════════════════════╝${NC}"
+echo -e "${BOLD}╔══════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${BOLD}║  ____  _               _                   _                 ║${NC}"
+echo -e "${BOLD}║ / ___|| |__   __ _  __| | _____      _____| | __ ___      __ ║${NC}"
+echo -e "${BOLD}║ \___ \| '_ \ / _\` |/ _\` |/ _ \ \ /\ / / __| |/ _\` \ \ /\ / / ║${NC}"
+echo -e "${BOLD}║  ___) | | | | (_| | (_| | (_) \ V  V / (__| | (_| |\ V  V /  ║${NC}"
+echo -e "${BOLD}║ |____/|_| |_|\__,_|\__,_|\___/ \_/\_/ \___|_|\__,_| \_/\_/   ║${NC}"
+echo -e "${BOLD}║                  Shadowclaw AI Agent v3.4                    ║${NC}"
+echo -e "${BOLD}╚══════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 print_status "Working directory: $(pwd)"
 print_status "State file: $STATE_FILE"
@@ -140,7 +142,6 @@ ARGS=()
 if [ $NO_LLM_MODE -eq 1 ]; then
     ARGS+=("--no-llm")
 fi
-# Pass any remaining original arguments (e.g., --dry-run, --log, -f)
 for arg in "$@"; do
     if [ "$arg" != "--force-llm" ]; then
         ARGS+=("$arg")

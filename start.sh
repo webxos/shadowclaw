@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shadowclaw Startup Script v3.2+ (Fixed)
+# Shadowclaw Startup Script v3.3+ (Fixed)
 # Location: /home/kali/shadowclaw-v2/start.sh
 
 set -e

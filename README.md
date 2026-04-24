@@ -69,7 +69,7 @@ static const char *ollama_model = "qwen2.5:0.5b"; (Change this to desired model)
 static long llm_connect_timeout = 15;
 ```
 
-Also line 16 in start.sh file:
+Also line 16 in the start.sh file:
 
 ```bash
 OLLAMA_ENDPOINT="${OLLAMA_ENDPOINT:-http://localhost:11434}"

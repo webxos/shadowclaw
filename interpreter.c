@@ -5,12 +5,20 @@
 #include <ctype.h>
 #include <stdint.h>
 
+/* Global sync request flag (set by commands that modify state) */
+static int sync_requested = 0;
+
+void interpreter_request_sync(void) {
+    sync_requested = 1;
+}
+
 /* Command table – add your own commands here */
 static Command commands[] = {
-    { "boot",  boot_disk },
-    { "diag",  run_diagnostic },
+    { "boot",   boot_disk },
+    { "diag",   run_diagnostic },
     { "status", get_status },
-    { NULL, NULL }   /* sentinel */
+    { "replan", cmd_replan },   /* new command */
+    { NULL, NULL }              /* sentinel */
 };
 
 /* ------------------------------------------------------------------
@@ -29,7 +37,7 @@ static void sb_init(string_builder *sb) {
 }
 
 static int sb_append_char(string_builder *sb, char c) {
-    if (sb->len + 2 > sb->cap) {   /* +1 for char, +1 for null */
+    if (sb->len + 2 > sb->cap) {
         size_t new_cap = sb->cap ? sb->cap * 2 : 32;
         char *new_str = realloc(sb->str, new_cap);
         if (!new_str) return -1;
@@ -173,7 +181,6 @@ char* interpret_command(const char* input) {
  * Example command implementations
  * ------------------------------------------------------------------ */
 char* boot_disk(const char* args) {
-    /* Dynamic allocation to avoid truncation */
     size_t len = strlen("Booting disk with args: ") + strlen(args) + 1;
     char *buf = malloc(len);
     if (!buf) return strdup("Memory error");
@@ -189,4 +196,19 @@ char* run_diagnostic(const char* args) {
 char* get_status(const char* args) {
     (void)args;
     return strdup("Status: All systems nominal.");
+}
+
+/* ------------------------------------------------------------------
+ * New command: /replan – forces a fresh LLM call
+ * Returns a special marker that the main loop will recognize.
+ * ------------------------------------------------------------------ */
+char* cmd_replan(const char* args) {
+    (void)args;
+    /* Request a soul sync (though this command doesn't modify state) */
+    interpreter_request_sync();
+    /* Return the replan marker */
+    char *marker = malloc(strlen(INTERPRETER_MARKER_REPLAN) + 1);
+    if (!marker) return strdup("Memory error");
+    strcpy(marker, INTERPRETER_MARKER_REPLAN);
+    return marker;
 }

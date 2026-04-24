@@ -19,7 +19,7 @@
 // ------------------------------------------------------------------
 // Version & Colors
 // ------------------------------------------------------------------
-#define SHADOWCLAW_VERSION "3.4"
+#define SHADOWCLAW_VERSION "3.3"
 #define COLOR_RESET   "\033[0m"
 #define COLOR_RED     "\033[31m"
 #define COLOR_GREEN   "\033[32m"

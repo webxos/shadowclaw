@@ -16,7 +16,7 @@
   </pre>
 </div>
 
-**Shadowclaw** is a lightweight, self-contained AI agent written in C. It uses a local LLM (Ollama) to reason and plan, executes tools (file I/O, HTTP, shell, cron, webhooks), and persistently stores all memories – conversation, skills, cron jobs, and core knowledge – in a custom **arena** plus a human‑readable **soul file**. The agent follows a ReWOO‑style plan‑and‑solve pattern with full tool integration.
+**Shadowclaw** is a lightweight, self-contained AI agent harness written in C. It uses a local LLM (Ollama) to reason and plan, executes tools (file I/O, HTTP, shell, cron, webhooks), and persistently stores all memories – conversation, skills, cron jobs, and core knowledge – in a custom **arena** plus a human‑readable **soul file**. The agent follows a ReWOO‑style plan‑and‑solve pattern with full tool integration.
 
 ---
 

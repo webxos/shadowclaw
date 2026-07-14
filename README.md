@@ -22,16 +22,16 @@
 
 ## Features
 
-- **🧠 Local LLM integration** – works with any Ollama model (default: `tinyllama:1.1b`).
-- **🔧 Built‑in tools** – `file_read`, `file_write`, `http_get`, `math`, `list_dir`, `shell` (disabled by default), and more.
-- **⏰ Cron jobs** – schedule recurring tasks using `@every N[s/m/h]`, `@hourly`, `@daily`, `@weekly`.
-- **🌐 Webhooks** – trigger HTTP POST calls on tool execution or cron events.
-- **🎓 Dynamic skills** – create reusable multi‑step workflows without recompiling.
-- **💾 Core memory** – persistent key‑value storage (JSON) that survives across sessions.
-- **📜 Soul file** – Markdown export of all memories (conversation, skills, crons, webhooks, core memory).
-- **🎨 Colored TUI** – optional GNU readline support for line editing and history.
-- **⚡ Thread‑safe** – cron jobs run in a separate thread, tool calls are queued.
-- **🛡️ Security** – path sandboxing, domain allowlist, shell opt‑in, dry‑run mode.
+- Local LLM integration – works with any Ollama model (default: `tinyllama:1.1b`).
+- Built‑in tools – `file_read`, `file_write`, `http_get`, `math`, `list_dir`, `shell` (disabled by default), and more.
+- Cron Jobs – schedule recurring tasks using `@every N[s/m/h]`, `@hourly`, `@daily`, `@weekly`.
+- Webhooks – trigger HTTP POST calls on tool execution or cron events.
+- Dynamic skills – create reusable multi‑step workflows without recompiling.
+- Core memory – persistent key‑value storage (JSON) that survives across sessions.
+- Soul file – Markdown export of all memories (conversation, skills, crons, webhooks, core memory).
+- Colored TUI – optional GNU readline support for line editing and history.
+- Thread‑safe – cron jobs run in a separate thread, tool calls are queued.
+- Security – path sandboxing, domain allowlist, shell opt‑in, dry‑run mode.
 
 ---
 

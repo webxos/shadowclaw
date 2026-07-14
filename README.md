@@ -35,7 +35,7 @@
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 - **Linux / macOS / WSL** (tested on Ubuntu 22.04, Kali)
 - **Ollama** (running locally) – optional, the agent can run in `--no-llm` mode
@@ -106,7 +106,7 @@ Shadowclaw understands both natural language (sent to the LLM) and slash command
 
 ---
 
-## 🛠️ Tools
+## Tools
 
 Tools are invoked by the LLM during the “plan” phase. Each tool is described in the LLM prompt with its parameters and an example.
 
@@ -170,7 +170,7 @@ The file is updated every 5 writes (write‑behind) and immediately after import
 
 ---
 
-## ⚙️ Configuration via Environment Variables
+## Configuration via Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|

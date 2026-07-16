@@ -193,6 +193,83 @@ shadowclaw/
 └── README.md             # This file
 ```
 
+The architectural framework of the Shadowclaw harness breaks down into five distinct subsystems:
+
+```
+                  ┌──────────────────────────────────────────┐
+                  │          SHADOWCLAW C HARNESS            │
+                  │                                          │
+                  │  ┌──────────────┐      ┌──────────────┐  │
+ ┌──────────┐     │  │  1. Memory   │      │  2. Tool     │  │     ┌───────────┐
+ │   User   ├────►│  │   (Arena &   │      │  Dispatcher  │  │◄───►│ Local LLM │
+ │ Interface│     │  │  Soul File)  │      │(File, Shell) │  │     │ (Ollama)  │
+ └──────────┘     │  └──────┬───────┘      └──────┬───────┘  │     └───────────┘
+                  │         │                     │          │
+                  │         ▼                     ▼          │
+                  │  ┌────────────────────────────────────┐  │
+                  │  │     3. The Orchestration Loop      │  │
+                  │  │       (Plan ➔ Act ➔ Observe)       │  │
+                  │  └────────────────────────────────────┘  │
+                  │  ┌──────────────┐      ┌──────────────┐  │
+                  │  │ 4. Transmit  │      │  5. Security │  │
+                  │  │ (curl/cJSON) │      │  (Sandbox)   │  │
+                  │  └──────────────┘      └──────────────┘  │
+                  └──────────────────────────────────────────┘
+```
+
+## 1. Memory Subsystem (The Arena & The Soul File)
+Instead of querying an external database, Shadowclaw structures its memory layout using a growable shadow arena. 
+
+* Contiguous Memory Block: Everything—current conversations, global configurations, tool parameters, and historical logs—is allocated in one continuous memory buffer using custom headers. 
+* State Persistence: When saving, the harness performs a raw memory dump of this arena directly into a single binary file (shadowclaw.bin). 
+* The "Soul File": To make things human-readable, the harness automatically mirrors and exports state into a Markdown file (the "soul file"), capturing persistent core memories, skills, and cron schedules. 
+
+## 2. The Tool Dispatcher
+The model can only output text. The harness converts text intents into system actions. Shadowclaw includes native, hardcoded handlers for basic system tools: 
+
+* File I/O: Reading, editing, and mapping local workspace directories.
+* Bash Execution: A secure pipe that evaluates terminal commands.
+* Math Parser: Outsources complex evaluation to native utilities like bc.
+* Dynamic Workflows: A feature that allows the model to register reusable multi-step macros ("dynamic skills") into the memory arena without requiring a program recompilation.
+
+## 3. The Orchestration Loop (Plan-Act-Observe)
+This loop drives the entire runtime lifecycle. It repeatedly manages the control token sequence: 
+
+   1. Listen: Receives input via the Command Line interface / TUI. 
+   2. Context Assembly: Fetches history from the memory arena, appends system rules, and binds tool definitions into a final raw string prompt. 
+   3. Inference Call: Handshakes with the local model. 
+   4. Regex Execution: If the model returns a structured tool signature, the loop pauses, executes the requested action via the Tool Dispatcher, collects the output, and appends it as an "observation" back into the prompt buffer. 
+   5. Termination: The loop breaks only when the model returns a final text answer instead of another tool request. 
+
+## 4. The Network and Serialization Layer (JSON Glue)
+Because it avoids bulkier runtime dependencies, the communication infrastructure is written down to the metal using two foundational libraries: 
+
+* libcurl Connection: The harness uses C-native libcurl to handle streaming and asynchronous POST payloads targeting Ollama's local HTTP API endpoints (http://localhost:11434).  
+* cJSON Parsing: Since LLM microservices interface purely via text representations, cJSON handles text-to-object conversions, unpacking nested tool structures, and encoding tool payloads within strict bounds. 
+
+## 5. Security & Isolation Boundaries
+A primary risk of full-automation agents is untrusted shell access. Shadowclaw manages this threat on a compile/flag layer: 
+
+* Path Sandboxing: Prevents file modifications outside of the pre-declared workspace directory.
+* Shell Opt-in / Dry Run: Allows the user to toggle absolute shell blockades or test model output safety before system modifications execute.
+
+------------------------------
+## Shadowclaw vs. OpenClaw: Harness Weight
+The engineering trade-offs between the two frameworks map as follows:
+
+| Harness Feature | OpenClaw (TypeScript/Docker) | Shadowclaw (C Binary) |
+|---|---|---|
+| Footprint | High (Node.js runtime, virtual environments) | Low (Single static executable) |
+| Concurrency | Asynchronous Event Loop / Node Worker Threads | Native libpthread (Tool queues & cron threads) |
+| Tool Protocol | Full Model Context Protocol (MCP) | Inline Hardcoded Array Mapping |
+| Memory | Database/File system structures (MEMORY.md) | Flat Arena Buffers (shadowclaw.bin) |
+
+---
+
+## Hugging Face
+
+ [https://huggingface.co](https://huggingface.co/webxos/shadowclaw-c)
+
 ## 📄 License
 
 MIT License. 

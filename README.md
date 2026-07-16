@@ -266,10 +266,6 @@ The engineering trade-offs between the two frameworks map as follows:
 
 ---
 
-## Hugging Face
-
- [https://huggingface.co](https://huggingface.co/webxos/shadowclaw-c)
-
 ## 📄 License
 
 MIT License. 

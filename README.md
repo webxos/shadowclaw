@@ -244,7 +244,7 @@ This loop drives the entire runtime lifecycle. It repeatedly manages the control
 ## 4. The Network and Serialization Layer (JSON Glue)
 Because it avoids bulkier runtime dependencies, the communication infrastructure is written down to the metal using two foundational libraries: 
 
-* libcurl Connection: The harness uses C-native libcurl to handle streaming and asynchronous POST payloads targeting Ollama's local HTTP API endpoints (http://localhost:11434).  
+* libcurl Connection: The harness uses C-native libcurl to handle streaming and asynchronous POST payloads targeting Ollama's local HTTP API endpoints (localhost:11434).  
 * cJSON Parsing: Since LLM microservices interface purely via text representations, cJSON handles text-to-object conversions, unpacking nested tool structures, and encoding tool payloads within strict bounds. 
 
 ## 5. Security & Isolation Boundaries

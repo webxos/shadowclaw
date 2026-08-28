@@ -270,10 +270,6 @@ The engineering trade-offs between the two frameworks map as follows:
 
 MIT License. 
 
-## Archive
-
-Version 1.3: https://github.com/webxos/webXOS/tree/main/shadowclaw
-
 ## SCREENSHOTS
 
 ![Alt Text](https://github.com/webxos/shadowclaw/blob/main/assets/screen1.png)
